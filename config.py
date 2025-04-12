@@ -35,8 +35,8 @@ language_keywords = {
 
 translation_rules = {
     ('Python', 'C++'): {
-        'def ': 'void ',
-        'print': 'std::cout << ',
+        'def': 'void',
+        'print': 'std::cout <<',
 
     },
     # потом другие правила......
