@@ -10,6 +10,6 @@ def create_text_area(frame):
     return text_area
 
 def create_combo(frame, values):
-    combo = ttk.Combobox(frame, values=values, state="readonly")
+    combo = ttk.Combobox(frame, values=values, state="readonly", width = 20)
     combo.grid(row=0, column=0, pady=5, sticky="ew")
     return combo

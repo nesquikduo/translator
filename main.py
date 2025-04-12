@@ -1,7 +1,7 @@
 import tkinter as tk
 from ui_elements import create_text_area, create_combo
 from config import languages_colors
-
+from logic_file import change_color_1, change_color_2
 
 languages_list = ["C++", "C#", "Java", "Ruby",
                   "Pascal", "Java Script", "Swift",
@@ -37,6 +37,8 @@ def swap_text():
 root = tk.Tk()
 root.title("Языки программирования")
 root.minsize(400, 400)
+language_lock_1 = tk.BooleanVar(value=False)
+language_lock_2 = tk.BooleanVar(value=False)
 left_frame = tk.Frame(root)
 right_frame = tk.Frame(root)
 button_frame = tk.Frame(root)
@@ -46,15 +48,26 @@ text_1 = create_text_area(left_frame)
 combo_box_2 = create_combo(right_frame, languages_list)
 text_2 = create_text_area(right_frame)
 
+lock_check_1 = tk.Checkbutton(left_frame, text="Блок", variable=language_lock_1)
+lock_check_1.grid(row=0, column=2)
+lock_check_2 = tk.Checkbutton(right_frame, text="Блок", variable=language_lock_2)
+lock_check_2.grid(row=0, column=2)
+
+language_lock_1 = tk.BooleanVar(value=False)
+language_lock_2 = tk.BooleanVar(value=False)
+
 swap_button = tk.Button(button_frame, text="<<-->>", command=swap_text)
 swap_button.pack(pady=5)
 
 
-left_frame.grid(row=0, column=0, padx=10, pady=10, sticky="nsew")
-button_frame.grid(row=0, column=1, padx=10, pady=10, sticky="nsew")
-right_frame.grid(row=0, column=2, padx=10, pady=10, sticky="nsew")
+left_frame.grid(row=0, column=0, padx=3, pady=10, sticky="nsew")
+button_frame.grid(row=0, column=1, padx=2, pady=10, sticky="nsew")
+right_frame.grid(row=0, column=2, padx=3, pady=10, sticky="nsew")
+
 
 combo_box_1.bind("<<ComboboxSelected>>", lambda event: on_combo_select(1))
 combo_box_2.bind("<<ComboboxSelected>>", lambda event: on_combo_select(2))
+text_1.bind("<KeyRelease>", lambda event: change_color_1(text_1, combo_box_1, language_lock_1))
+text_2.bind("<KeyRelease>", lambda event: change_color_2(text_2, combo_box_2, language_lock_2))
 
 root.mainloop()
