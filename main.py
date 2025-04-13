@@ -1,7 +1,8 @@
 import tkinter as tk
 from ui_elements import create_text_area, create_combo
 from config import languages_colors, translation_rules
-from logic_file import change_color_1, change_color_2, translate_code, import_text, save_text
+from logic_file import change_color_1, change_color_2, translate_code, import_text, save_text, refresh_all
+
 
 languages_list = ["C++", "C#", "Java", "Ruby",
                   "Pascal", "Java Script", "Swift",
@@ -73,6 +74,10 @@ import_button.pack(pady=5)
 save_button = tk.Button(button_frame, text="Save", command=lambda:
 save_text(text_1, text_2, combo_box_1, combo_box_2, active_text_widget))
 save_button.pack(pady=5)
+
+refresh_button = tk.Button(button_frame, text="Refresh", command=lambda:
+refresh_all( text_1, text_2, combo_box_1, combo_box_2))
+refresh_button.pack(pady=5)
 
 left_frame.grid(row=0, column=0, padx=3, pady=10, sticky="nsew")
 button_frame.grid(row=0, column=1, padx=2, pady=10, sticky="nsew")

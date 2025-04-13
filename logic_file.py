@@ -111,3 +111,11 @@ def save_text(text_1, text_2, combo_box_1, combo_box_2, active_text_widget):
         messagebox.showinfo("Успех", f"Сохранено в {file_name}")
     except Exception as e:
         messagebox.showerror("Ошибка", f"Не удалось сохранить: {e}")
+
+def refresh_all(text_1, text_2, combo_box_1, combo_box_2):
+    combo_box_1.set('')
+    combo_box_2.set('')
+    text_1.delete("1.0", "end")
+    text_1.configure(bg="white")
+    text_2.delete("1.0", "end")
+    text_2.configure(bg="white")
