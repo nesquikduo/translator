@@ -1,6 +1,23 @@
 import re
 from config import language_keywords, languages_colors
-from tkinter import messagebox
+from tkinter import messagebox, filedialog
+
+def import_text(text_1, text_2, change_color_1, change_color_2, language_lock_1, language_lock_2, active_text_widget):
+    file_path = filedialog.askopenfilename(
+        title="Выберите файл для импорта",
+        filetypes=(("Текстовые файлы", "*.txt"), ("Все файлы", "*.*"))
+    )
+    if file_path:
+        with open(file_path, 'r', encoding='utf-8') as file:
+            content = file.read()
+        if active_text_widget == 'left':
+            text_1.delete("1.0", "end")
+            text_1.insert("1.0", content)
+            change_color_1(text_1, combo_box_1, language_lock_1)
+        elif active_text_widget == 'right':
+            text_2.delete("1.0", "end")
+            text_2.insert("1.0", content)
+            change_color_2(text_2, combo_box_2, language_lock_2)
 
 def translate_code(text_1, text_2, combo_box_1, combo_box_2, translation_rules, languages_colors):
     source_lang = combo_box_1.get()

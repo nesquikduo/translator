@@ -35,9 +35,109 @@ language_keywords = {
 
 translation_rules = {
     ('Python', 'C++'): {
-        'def': 'void',
-        'print': 'std::cout <<',
+        'def ': 'void ',
+        'print': 'std::cout << ',
+        'input': 'std::cin >> ',
+        'self': 'this',
+        ':': '{',
+        'lambda': '[]()',
+        '#': '//'},
+    ('Python', 'Java'): {
+        'def ': 'public void ',
+        'print': 'System.out.println',
+        'self': 'this',
+        'lambda': '->',
+        '#': '//'},
+    ('Python', 'Ruby'): {
+        'def ': 'def ',
+        'print': 'puts',
+        'self': 'self',
+        ':': '',
+        '#': '#'},
+    ('Python', 'PHP'): {
+        'def ': 'function ',
+        'print': 'echo ',
+        'self': '$this',
+        '#': '//'},
+    ('Python', 'Java Script'): {
+        'def ': 'function ',
+        'print': 'console.log',
+        'self': 'this',
+        '#': '//'},
+    ('Python', 'Swift'): {
+        'def ': 'func ',
+        'print': 'print',
+        'self': 'self',
+        '#': '//'},
+    ('Python', 'Rust'): {
+        'def ': 'fn ',
+        'print': 'println!',
+        'self': 'self',
+        '#': '//'},
+    ('Python', 'Scala'): {
+        'def ': 'def ',
+        'print': 'println',
+        'self': 'this',
+        '#': '//'},
+    ('Python', 'Pascal'): {
+        'def ': 'procedure ',
+        'print': 'writeln',
+        'self': '',
+        '#': '//'},
+    ('Python', '1C'): {
+        'def ': 'Процедура ',
+        'print': 'Сообщить',
+        'self': 'ЭтотОбъект',
+        '#': '//'},
+    ('Python', 'HTML'): {
+        'print': '<p>',
+        '#': '<!--'},
+    ('Python', 'CSS'): {
+        'print': '',
+        '#': '/*'},
 
+    # C++
+    ('C++', 'Python'): {
+        '#include': 'import',
+        'std::cout << ': 'print',
+        'std::cin >> ': 'input',
+        '//': '#',
+        '{': ':',
+        '}': '',
     },
-    # потом другие правила......
+    ('C++', 'Java'): {
+        '#include': 'import',
+        'std::cout << ': 'System.out.println',
+        'std::cin >> ': 'System.in.read',
+        '->': '->',
+        'std::': ''
+    },
+    ('C++', 'Ruby'): {
+        '#include': '',
+        'std::cout << ': 'puts',
+        'std::cin >> ': '',
+        '//': '#',
+        '{': '',
+        '}': 'end'
+    },
+
+    # Java
+    ('Java', 'Python'): {
+        'public void ': 'def ',
+        'System.out.println': 'print',
+        'this': 'self',
+        '//': '#',
+        '{': ':',
+        '}': ''
+    },
+    ('Java', 'C++'): {
+        'public void ': 'void ',
+        'System.out.println': 'std::cout << ',
+        'this': 'this',
+        '//': '//',
+        '{': '{',
+        '}': '}'
+    },
+
 }
+

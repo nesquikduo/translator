@@ -1,10 +1,7 @@
 import tkinter as tk
 from ui_elements import create_text_area, create_combo
-from config import languages_colors
-from logic_file import change_color_1, change_color_2
-from logic_file import translate_code
-from config import translation_rules
-
+from config import languages_colors, translation_rules
+from logic_file import change_color_1, change_color_2, translate_code, import_text
 
 languages_list = ["C++", "C#", "Java", "Ruby",
                   "Pascal", "Java Script", "Swift",
@@ -37,11 +34,16 @@ def swap_text():
     text_1.configure(bg=color_1)
     text_2.configure(bg=color_2)
 
+def set_active_widget(name):
+    global active_text_widget
+    active_text_widget = name
+
 root = tk.Tk()
 root.title("Языки программирования")
 root.minsize(400, 400)
 language_lock_1 = tk.BooleanVar(value=False)
 language_lock_2 = tk.BooleanVar(value=False)
+active_text_widget = None
 left_frame = tk.Frame(root)
 right_frame = tk.Frame(root)
 button_frame = tk.Frame(root)
@@ -62,6 +64,9 @@ swap_button.pack(pady=5)
 translate_button = tk.Button(button_frame, text="Translate", command=lambda: translate_code(text_1, text_2, combo_box_1, combo_box_2, translation_rules, languages_colors))
 translate_button.pack(pady=5)
 
+import_button = tk.Button(button_frame, text="Import", command=lambda: import_text(text_1, text_2, change_color_1, change_color_2, language_lock_1, language_lock_2, active_text_widget))
+import_button.pack(pady=5)
+
 left_frame.grid(row=0, column=0, padx=3, pady=10, sticky="nsew")
 button_frame.grid(row=0, column=1, padx=2, pady=10, sticky="nsew")
 right_frame.grid(row=0, column=2, padx=3, pady=10, sticky="nsew")
@@ -69,7 +74,10 @@ right_frame.grid(row=0, column=2, padx=3, pady=10, sticky="nsew")
 
 combo_box_1.bind("<<ComboboxSelected>>", lambda event: on_combo_select(1))
 combo_box_2.bind("<<ComboboxSelected>>", lambda event: on_combo_select(2))
+text_1.bind("<FocusIn>", lambda e: set_active_widget('left'))
+text_2.bind("<FocusIn>", lambda e: set_active_widget('right'))
 text_1.bind("<KeyRelease>", lambda event: change_color_1(text_1, combo_box_1, language_lock_1))
 text_2.bind("<KeyRelease>", lambda event: change_color_2(text_2, combo_box_2, language_lock_2))
+
 
 root.mainloop()
