@@ -1,8 +1,7 @@
 import tkinter as tk
 from ui_elements import create_text_area, create_combo
-from config import languages_colors, translation_rules
-from logic_file import change_color_1, change_color_2, translate_code, import_text, save_text, refresh_all
-
+from config import languages_colors, translation_rules, language_keywords
+from logic_file import change_color_1, change_color_2, translate_code, import_text, save_text, refresh_all, check_unrecognized_words, check_mixed_languages
 
 languages_list = ["C++", "C#", "Java", "Ruby",
                   "Pascal", "Java Script", "Swift",
@@ -54,9 +53,9 @@ text_1 = create_text_area(left_frame)
 combo_box_2 = create_combo(right_frame, languages_list)
 text_2 = create_text_area(right_frame)
 
-lock_check_1 = tk.Checkbutton(left_frame, text="Блок", variable=language_lock_1)
+lock_check_1 = tk.Checkbutton(left_frame, text="Lock", variable=language_lock_1)
 lock_check_1.grid(row=0, column=2)
-lock_check_2 = tk.Checkbutton(right_frame, text="Блок", variable=language_lock_2)
+lock_check_2 = tk.Checkbutton(right_frame, text="Lock", variable=language_lock_2)
 lock_check_2.grid(row=0, column=2)
 
 swap_button = tk.Button(button_frame, text="<<-->>", command=swap_text)
@@ -90,6 +89,10 @@ text_1.bind("<FocusIn>", lambda e: set_active_widget('left'))
 text_2.bind("<FocusIn>", lambda e: set_active_widget('right'))
 text_1.bind("<KeyRelease>", lambda event: change_color_1(text_1, combo_box_1, language_lock_1))
 text_2.bind("<KeyRelease>", lambda event: change_color_2(text_2, combo_box_2, language_lock_2))
+text_1.bind("<Return>", lambda e: check_mixed_languages(text_1, language_keywords))
+text_1.bind("<Return>", lambda e: check_unrecognized_words(text_1, language_keywords), add="+")
+text_2.bind("<Return>", lambda e: check_mixed_languages(text_2, language_keywords))
+text_2.bind("<Return>", lambda e: check_unrecognized_words(text_2, language_keywords), add="+")
 
 
 root.mainloop()

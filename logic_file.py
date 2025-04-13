@@ -119,3 +119,43 @@ def refresh_all(text_1, text_2, combo_box_1, combo_box_2):
     text_1.configure(bg="white")
     text_2.delete("1.0", "end")
     text_2.configure(bg="white")
+
+def check_unrecognized_words(text_widget, language_keywords):
+    import re
+    from tkinter import messagebox
+
+    content = text_widget.get("1.0", "end").strip()
+    if not content:
+        return
+
+    content = re.sub(r'(["\'])(?:(?=(\\?))\2.)*?\1', '', content)
+    words = re.findall(r'\b[\wА-Яа-я:#<>]+\b', content)
+
+    all_keywords = set()
+    for keyword_list in language_keywords.values():
+        all_keywords.update(keyword_list)
+
+    unrecognized = [word for word in words if word not in all_keywords]
+
+    if unrecognized:
+        messagebox.showerror("Нераспознанные слова", f"Обнаружено: {', '.join(unrecognized)}")
+
+def check_mixed_languages(text_widget, language_keywords):
+    import re
+    from tkinter import messagebox
+
+    content = text_widget.get("1.0", "end").strip()
+    if not content:
+        return
+
+    content = re.sub(r'(["\'])(?:(?=(\\?))\2.)*?\1', '', content)
+    words = re.findall(r'\b[\wА-Яа-я:#<>]+\b', content)
+
+    matches = {}
+    for language, keywords in language_keywords.items():
+        matches[language] = sum(word in words for word in keywords)
+
+    reliable = [lang for lang, count in matches.items() if count >= 2]
+
+    if len(reliable) > 1:
+        messagebox.showerror("Смешанные языки", "Обнаружены элементы нескольких языков: " + ", ".join(reliable))
