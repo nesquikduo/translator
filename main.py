@@ -1,7 +1,7 @@
 import tkinter as tk
 from ui_elements import create_text_area, create_combo
 from config import languages_colors, translation_rules
-from logic_file import change_color_1, change_color_2, translate_code, import_text
+from logic_file import change_color_1, change_color_2, translate_code, import_text, save_text
 
 languages_list = ["C++", "C#", "Java", "Ruby",
                   "Pascal", "Java Script", "Swift",
@@ -61,11 +61,18 @@ lock_check_2.grid(row=0, column=2)
 swap_button = tk.Button(button_frame, text="<<-->>", command=swap_text)
 swap_button.pack(pady=5)
 
-translate_button = tk.Button(button_frame, text="Translate", command=lambda: translate_code(text_1, text_2, combo_box_1, combo_box_2, translation_rules, languages_colors))
+translate_button = tk.Button(button_frame, text="Translate", command=lambda:
+translate_code(text_1, text_2, combo_box_1, combo_box_2, translation_rules, languages_colors, language_lock_2))
 translate_button.pack(pady=5)
 
-import_button = tk.Button(button_frame, text="Import", command=lambda: import_text(text_1, text_2, change_color_1, change_color_2, language_lock_1, language_lock_2, active_text_widget))
+import_button = tk.Button(button_frame, text="Import", command=lambda:
+import_text(text_1, text_2, combo_box_1, combo_box_2, change_color_1,
+            change_color_2, language_lock_1, language_lock_2, active_text_widget))
 import_button.pack(pady=5)
+
+save_button = tk.Button(button_frame, text="Save", command=lambda:
+save_text(text_1, text_2, combo_box_1, combo_box_2, active_text_widget))
+save_button.pack(pady=5)
 
 left_frame.grid(row=0, column=0, padx=3, pady=10, sticky="nsew")
 button_frame.grid(row=0, column=1, padx=2, pady=10, sticky="nsew")
