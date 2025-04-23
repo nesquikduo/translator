@@ -10,14 +10,12 @@ languages_colors = {
     'Rust': 'pink',
     'PHP': 'blue',
     'Scala': 'red',
-    'CSS': 'yellow',
     'Python': 'green',
-    'HTML': 'purple',
     'Не распознано': 'white'
 }
 
 language_keywords = {
-    'C++': ['#include', 'std::', 'cout', 'cin', '->', '::'],
+    'C++': ['#include', 'std', '::', 'cout', 'cin', '->', '::', 'void'],
     'C#': ['using', 'namespace', 'class', 'void', 'public', 'static'],
     'Java': ['public', 'class', 'void', 'import', 'System.out'],
     'Ruby': ['def', 'end', 'puts', 'class', 'module', 'begin'],
@@ -28,9 +26,7 @@ language_keywords = {
     'Rust': ['fn', 'let', 'mut', 'println!', 'impl', 'use'],
     'PHP': ['<?php', 'echo', '$', 'function', 'namespace', 'use'],
     'Scala': ['object', 'def', 'val', 'var', 'println', 'class'],
-    'CSS': ['{', '}', ':', ';', 'color', 'background'],
-    'Python': ['def', 'print', 'import', 'class', 'self', 'lambda'],
-    'HTML': ['<html>', '<head>', '<body>', '<div>', '</html>', '<script>']
+    'Python': ['def', 'print', 'import', 'class', 'self', 'lambda']
 }
 
 translation_rules = {
@@ -89,12 +85,7 @@ translation_rules = {
         'print': 'Сообщить',
         'self': 'ЭтотОбъект',
         '#': '//'},
-    ('Python', 'HTML'): {
-        'print': '<p>',
-        '#': '<!--'},
-    ('Python', 'CSS'): {
-        'print': '',
-        '#': '/*'},
+
 
     # C++
     ('C++', 'Python'): {

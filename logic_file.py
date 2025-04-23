@@ -51,7 +51,7 @@ def translate_code(text_1, text_2, combo_box_1, combo_box_2, translation_rules, 
 
 def detect_language(content):
     matches = {}
-    words = re.findall(r'\b[\w:#<>]+\b', content)
+    words = re.findall(r'[^\s]+', content)
     for language, keywords in language_keywords.items():
         matches[language] = sum(word in words for word in keywords)
     detected_language = max(matches, key=matches.get) if matches else None
@@ -129,7 +129,7 @@ def check_unrecognized_words(text_widget, language_keywords):
         return
 
     content = re.sub(r'(["\'])(?:(?=(\\?))\2.)*?\1', '', content)
-    words = re.findall(r'\b[\wА-Яа-я:#<>]+\b', content)
+    words = re.findall(r'[\w\.\!\:\#\<\>\$\(\)\[\]]+', content)
 
     all_keywords = set()
     for keyword_list in language_keywords.values():
@@ -149,7 +149,7 @@ def check_mixed_languages(text_widget, language_keywords):
         return
 
     content = re.sub(r'(["\'])(?:(?=(\\?))\2.)*?\1', '', content)
-    words = re.findall(r'\b[\wА-Яа-я:#<>]+\b', content)
+    words = re.findall(r'[\w\.\!\:\#\<\>\$\(\)\[\]]+', content)
 
     matches = {}
     for language, keywords in language_keywords.items():
