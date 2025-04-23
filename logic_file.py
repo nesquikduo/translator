@@ -54,8 +54,33 @@ def detect_language(content):
     words = re.findall(r'[^\s]+', content)
     for language, keywords in language_keywords.items():
         matches[language] = sum(word in words for word in keywords)
-    detected_language = max(matches, key=matches.get) if matches else None
-    return detected_language if matches.get(detected_language, 0) > 0 else "Не распознано"
+
+    if 'def' in words:
+        if 'end' in words:
+            matches['Ruby'] = matches.get('Ruby', 0) + 2
+        if ':' in content:
+            matches['Python'] = matches.get('Python', 0) + 2
+    if 'echo' in words and '$' in content:
+        matches['PHP'] = matches.get('PHP', 0) + 2
+    if 'fn' in words and 'let' in words:
+        matches['Rust'] = matches.get('Rust', 0) + 2
+    if 'println!' in content:
+        matches['Rust'] = matches.get('Rust', 0) + 1
+    if 'print' in words and 'func' in content:
+        matches['Swift'] = matches.get('Swift', 0) + 2
+    if 'System.out.println' in content:
+        matches['Java'] = matches.get('Java', 0) + 2
+    if 'Console.WriteLine' in content:
+        matches['C#'] = matches.get('C#', 0) + 2
+    if 'writeln' in words or ':=' in content:
+        matches['Pascal'] = matches.get('Pascal', 0) + 2
+    if 'Сообщить' in words or 'Перем' in words:
+        matches['1C'] = matches.get('1C', 0) + 2
+    if 'console.log' in content:
+        matches['Java Script'] = matches.get('Java Script', 0) + 2
+
+    detected_language = max(matches, key=matches.get, default='Не распознано')
+    return detected_language if matches.get(detected_language, 0) > 0 else 'Не распознано'
 
 def change_color_1(text_widget, combo_box, lock_var):
     content = text_widget.get("1.0", "end").strip()
